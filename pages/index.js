@@ -1,6 +1,6 @@
 import Form from '@/components/form'
 import Layout from '@/components/layout'
-import { fromAcre } from 'lib/convertor'
+import { fromAcre, toSqft } from 'lib/convertor'
 import React, { useEffect, useState } from 'react'
 
 export default function LoginPage() {
@@ -8,6 +8,7 @@ export default function LoginPage() {
   const [dismil, setDismil] = useState(0)
   const [dismilError, setDismilError] = useState(null)
   const [result, setResult] = useState(null)
+  const [sqft, setSqft] = useState(null)
 
   const handleAcre = (e) => {
     if (e.target.value) {
@@ -31,6 +32,7 @@ export default function LoginPage() {
     const currentDismil = parseInt(dismil) || 0
     const data = fromAcre(currentAcre, currentDismil)
     setResult(Object.entries(data).filter(([k, v]) => v > 0))
+    setSqft(toSqft(currentAcre, currentDismil))
   }
 
   useEffect(() => {
@@ -69,6 +71,18 @@ export default function LoginPage() {
               ))}
             </p>
           </div>
+          {sqft ? (
+            <div className='flex justify-between items-center p-4 rounded-md border dark:border-gray-700'>
+              <p className='text-sm text-center text-gray-700 dark:text-gray-200'>
+                <p className='text-sm text-center text-gray-700 dark:text-gray-200'>
+                  <span className='text-xl font-medium'>{sqft}</span>
+                  <span className='px-1 text-gray-600 dark:text-gray-300'>
+                    Sq. Ft.
+                  </span>
+                </p>
+              </p>
+            </div>
+          ) : null}
         </div>
       </Form.Wrapper>
     </Layout.Page>

@@ -86,7 +86,10 @@ export default function HomePage() {
   }, [dismil])
 
   return (
-    <Layout.Page title='Bhoomi' desc='Convert acre to local units'>
+    <Layout.Page
+      title='Bhoomi'
+      desc='Convert and aggregate acres to north-indian units of land'
+    >
       <Stats result={result.length ? result : defaultResult} sqft={sqft} />
       <div className='flex flex-col justify-end lg:flex-row space-y-4 lg:space-x-4 lg:space-y-0 lg:px-16 px-8 py-8 mx-auto'>
         <div className='flex flex-row space-x-4'>
@@ -98,7 +101,6 @@ export default function HomePage() {
             title='Dismil'
           />
         </div>
-
         <div className='flex justify-between items-start'>
           <Form.Submit onClick={addToList}>Add to List</Form.Submit>
         </div>

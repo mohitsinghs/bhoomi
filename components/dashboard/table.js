@@ -12,12 +12,16 @@ function Card({ acre, dismil, onDelete }) {
   return (
     <div className='relative rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-6 py-5 shadow-sm flex items-center space-x-3'>
       <div className='flex-1 min-w-0'>
-        <p className='text-sm font-medium text-gray-900 dark:text-gray-100'>
-          {acre} Acre
-        </p>
-        <p className='text-sm text-gray-500 dark:text-gray-400 truncate'>
-          {dismil} Dismil
-        </p>
+        {acre ? (
+          <p className='text-sm font-medium text-gray-900 dark:text-gray-100'>
+            {acre} Acre
+          </p>
+        ) : null}
+        {dismil ? (
+          <p className='text-sm text-gray-500 dark:text-gray-400 truncate'>
+            {dismil} Dismil
+          </p>
+        ) : null}
       </div>
       <button
         className='flex-shrink-0 cursor-pointer flex flex-col items-center justify-center'

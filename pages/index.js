@@ -12,6 +12,8 @@ const defaultResult = [
   ['Bigha', 0],
 ]
 
+const floatRegex = /^\d*?\.?\d*?$/
+
 export default function HomePage() {
   const [acre, setAcre] = useState('')
   const [dismil, setDismil] = useState('')
@@ -21,25 +23,22 @@ export default function HomePage() {
   const [sqft, setSqft] = useState(0)
 
   const handleAcre = (e) => {
-    if (e.target.value) {
-      setAcre(parseInt(e.target.value))
-    } else {
-      setAcre('')
+    const value = parseFloat(e.target.value)
+    if (typeof value === 'number' || !Number.isNaN(value)) {
+      setAcre(floatRegex.test(e.target.value) ? e.target.value : value)
     }
   }
 
   const handleDismil = (e) => {
-    if (e.target.value) {
-      const dismilVal = parseInt(e.target.value)
-      setDismil(dismilVal)
-    } else {
-      setDismil('')
+    const value = parseFloat(e.target.value)
+    if (typeof value === 'number' || !Number.isNaN(value)) {
+      setDismil(floatRegex.test(e.target.value) ? e.target.value : value)
     }
   }
 
   const addToList = () => {
     if (acre > 0 || dismil > 0) {
-      setLands([...lands, [acre || 0, dismil || 0]])
+      setLands([...lands, [parseFloat(acre) || 0, parseFloat(dismil) || 0]])
     }
     setAcre('')
     setDismil('')
@@ -52,15 +51,20 @@ export default function HomePage() {
   }
 
   useEffect(() => {
-    const totalAcre = lands.reduce((sum, land) => land[0] + sum, 0)
-    const totalDismil = lands.reduce((sum, land) => land[1] + sum, 0)
-    const data = fromAcre(parseInt(totalAcre) || 0, parseInt(totalDismil) || 0)
-    setResult(Object.entries(data).filter(([k, v]) => v > 0))
-    setSqft(toSqft(parseInt(totalAcre) || 0, parseInt(totalDismil) || 0))
+    const [totalAcre, totalDismil] = lands.reduce(
+      (sum, land) => [land[0] + sum[0], land[1] + sum[1]],
+      [0, 0]
+    )
+    console.log({ lands, totalAcre, totalDismil })
+    const parsedAcre = parseFloat(totalAcre)
+    const parsedDismil = parseFloat(totalDismil)
+    const local = fromAcre(parsedAcre, parsedDismil)
+    setResult(Object.entries(local).filter(([k, v]) => v > 0))
+    setSqft(toSqft(parsedAcre, parsedDismil))
   }, [lands])
 
   useEffect(() => {
-    if (parseInt(dismil) > 100) {
+    if (parseFloat(dismil) > 100) {
       setDismilError('You may want to set acres for > 100')
     } else {
       setDismilError(null)

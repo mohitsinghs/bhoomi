@@ -22,18 +22,33 @@ export default function HomePage() {
   const [result, setResult] = useState(defaultResult)
   const [sqft, setSqft] = useState(0)
 
+  const isValidNumber = (value) =>
+    typeof value === 'number' && !Number.isNaN(value)
+
   const handleAcre = (e) => {
-    const value = parseFloat(e.target.value)
-    if (typeof value === 'number' || !Number.isNaN(value)) {
-      setAcre(floatRegex.test(e.target.value) ? e.target.value : value)
-    }
+    try {
+      const value = parseFloat(e.target.value)
+      if (isValidNumber(value) || e.target.value === '') {
+        const output =
+          floatRegex.test(e.target.value) || e.target.value === ''
+            ? e.target.value
+            : value
+        setAcre(output)
+      }
+    } catch (error) {}
   }
 
   const handleDismil = (e) => {
-    const value = parseFloat(e.target.value)
-    if (typeof value === 'number' || !Number.isNaN(value)) {
-      setDismil(floatRegex.test(e.target.value) ? e.target.value : value)
-    }
+    try {
+      const value = parseFloat(e.target.value)
+      if (isValidNumber(value) || e.target.value === '') {
+        const output =
+          floatRegex.test(e.target.value) || e.target.value === ''
+            ? e.target.value
+            : value
+        setDismil(output)
+      }
+    } catch (error) {}
   }
 
   const addToList = () => {
@@ -55,7 +70,6 @@ export default function HomePage() {
       (sum, land) => [land[0] + sum[0], land[1] + sum[1]],
       [0, 0]
     )
-    console.log({ lands, totalAcre, totalDismil })
     const parsedAcre = parseFloat(totalAcre)
     const parsedDismil = parseFloat(totalDismil)
     const local = fromAcre(parsedAcre, parsedDismil)

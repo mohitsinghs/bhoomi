@@ -1,4 +1,3 @@
-import clsx from 'clsx'
 import { useEffect, useState } from 'react'
 import { Moon, Sun } from 'react-bootstrap-icons'
 
@@ -35,13 +34,9 @@ export default function Page({ children, title = 'Page', desc }) {
 
   return (
     <>
-      <main className='z-10 p-8 min-h-screen bg-white dark:bg-gray-800 lg:w-full'>
-        <header className='grid grid-cols-4 py-8 mx-auto max-w-xs'>
-          <h1
-            className={clsx([
-              'col-span-3 text-2xl font-bold leading-loose text-gray-700 dark:text-gray-100 sm:pb-2 md:text-3xl lg:text-4xl',
-            ])}
-          >
+      <main className='z-10 min-h-screen bg-white dark:bg-gray-800 w-full'>
+        <header className='grid grid-cols-4 py-8 lg:px-16 px-8 bg-gray-100 dark:bg-gray-700'>
+          <h1 className='col-span-3 font-bold text-gray-700 dark:text-gray-100 text-3xl'>
             {title}
           </h1>
           <button className='col-span-1 justify-self-end' onClick={toggleTheme}>
@@ -51,13 +46,7 @@ export default function Page({ children, title = 'Page', desc }) {
               <Sun className='text-xl' />
             )}
           </button>
-          <p
-            className={clsx([
-              'col-span-3 text-lg leading-loose text-gray-500 dark:text-gray-300',
-            ])}
-          >
-            {desc}
-          </p>
+          <p className='col-span-3 text-gray-500 dark:text-gray-300'>{desc}</p>
         </header>
         {children}
       </main>

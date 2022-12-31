@@ -2,7 +2,7 @@ import { Trash } from 'react-bootstrap-icons'
 
 function Table({ children }) {
   return (
-    <div className='grid grid-cols-1 gap-4 sm:grid-cols-4 px-8 lg:px-16'>
+    <div className='grid grid-cols-1 gap-4 sm:grid-cols-4 px-8 lg:px-16 py-8'>
       {children}
     </div>
   )

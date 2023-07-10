@@ -3,7 +3,7 @@ const aspectRatio = require('@tailwindcss/aspect-ratio')
 
 module.exports = {
   darkMode: 'class',
-  content: ['./pages/**/*.{js,md}', './components/**/*.js'],
+  content: ['./pages/**/*.js', './components/**/*.js'],
   theme: {
     extend: {
       fontFamily: {
